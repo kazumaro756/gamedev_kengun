@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
     private ScrollView taskScrollView;
     private Label reqNameLabel, taskTitleLabel, taskMessageLabel, taskReqLabel;
 
+    private Label fundsLabel, manpowerLabel;
+
+
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -56,6 +59,13 @@ public class UIManager : MonoBehaviour
             taskDetailContainer.style.display = DisplayStyle.None;
             taskListContainer.style.display = DisplayStyle.Flex;
         };
+
+
+        // OnEnable内に追加
+        fundsLabel = root.Q<Label>("FundsLabel");
+        manpowerLabel = root.Q<Label>("ManpowerLabel");
+        UpdateResourceUI(); // 初回表示
+
     }
 
     public void ShowTaskList()
@@ -96,5 +106,13 @@ public class UIManager : MonoBehaviour
         stateNameLabel.text = data?.stateName ?? "未選択";
         populationLabel.text = data != null ? $"人口: {data.population:N0}人" : "人口: --";
         ownerLabel.text = data != null ? $"所有者: {data.owner}" : "所有者: --";
+    }
+
+
+    public void UpdateResourceUI()
+    {
+        var res = ResourceManager.Instance.GetData();
+        if (fundsLabel != null) fundsLabel.text = $"{res.funds:N0}";
+        if (manpowerLabel != null) manpowerLabel.text = $"{res.manpower:N0}";
     }
 }

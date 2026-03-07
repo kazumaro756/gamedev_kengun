@@ -20,3 +20,30 @@
     color: rgb(200, 200, 200);
     margin-bottom: 5px;
 }
+
+.top-bar {
+    flex-direction: row;
+    background-color: rgba(20, 20, 20, 0.9);
+    height: 35px;
+    align-items: center;
+    padding-left: 20px;
+    border-bottom-width: 1px;
+    border-color: rgb(100, 100, 100);
+}
+
+.resource-group {
+    flex-direction: row;
+    margin-right: 30px;
+}
+
+.resource-label {
+    color: rgb(180, 180, 180);
+    font-size: 14px;
+}
+
+.resource-value {
+    color: white;
+    font-size: 16px;
+    -unity-font-style: bold;
+    margin-left: 5px;
+}

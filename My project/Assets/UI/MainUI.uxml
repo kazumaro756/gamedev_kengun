@@ -2,7 +2,16 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="ProvinceUI.uss" />
     <Style src="TaskUI.uss" />
-
+    <ui:VisualElement name="TopBar" class="top-bar">
+        <ui:VisualElement class="resource-group">
+            <ui:Label text="資金:" class="resource-label" />
+            <ui:Label name="FundsLabel" text="0" class="resource-value" />
+        </ui:VisualElement>
+        <ui:VisualElement class="resource-group">
+            <ui:Label text="総兵員:" class="resource-label" />
+            <ui:Label name="ManpowerLabel" text="0" class="resource-value" />
+        </ui:VisualElement>
+    </ui:VisualElement>
     <ui:VisualElement name="MainContainer" style="flex-grow: 1;">
         
         <ui:VisualElement name="ProvincePanel" class="panel">
