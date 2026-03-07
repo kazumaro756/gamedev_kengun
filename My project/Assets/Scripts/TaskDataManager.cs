@@ -6,7 +6,7 @@ public class TaskData
 {
     public int id;
     public string requesterName;
-    public string faceImageKey; // 画像を特定するためのキー
+    public string faceImageKey;
     public string title;
     public string message;
     public string requirement;
@@ -35,6 +35,7 @@ public class TaskDataManager : MonoBehaviour
         if (jsonFile != null)
         {
             TaskDataList data = JsonUtility.FromJson<TaskDataList>(jsonFile.text);
+            taskList.Clear();
             taskList.AddRange(data.tasks);
             Debug.Log($"[TaskData] {taskList.Count}件のタスクを読み込みました。");
         }
@@ -43,5 +44,11 @@ public class TaskDataManager : MonoBehaviour
     public TaskData GetTaskById(int id)
     {
         return taskList.Find(t => t.id == id);
+    }
+
+    // 【追加】エラー解消のために必要なメソッド
+    public List<TaskData> GetAllTasks()
+    {
+        return taskList;
     }
 }

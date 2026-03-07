@@ -1,17 +1,20 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using System.Collections.Generic; // 【重要】Listを使うために必要
 
 public class UIManager : MonoBehaviour
 {
     public static UIManager Instance;
 
-    // 州情報表示用のラベル
-    private Label stateNameLabel;
-    private Label populationLabel;
-    private Label ownerLabel;
+    // GetColorOnClickが参照しているプロパティの修正
+    // 「一覧」か「詳細」のどちらかが開いていればTrueを返すように変更
+    public bool IsTaskPanelActive =>
+        (taskListContainer != null && taskListContainer.resolvedStyle.display != DisplayStyle.None) ||
+        (taskDetailContainer != null && taskDetailContainer.resolvedStyle.display != DisplayStyle.None);
 
-    // タスク表示用の要素
-    private VisualElement taskContainer;
+    private Label stateNameLabel, populationLabel, ownerLabel;
+    private VisualElement taskListContainer, taskDetailContainer;
+    private ScrollView taskScrollView;
     private Label reqNameLabel, taskTitleLabel, taskMessageLabel, taskReqLabel;
 
     void Awake()
@@ -22,86 +25,76 @@ public class UIManager : MonoBehaviour
 
     void OnEnable()
     {
-        // 1. UI DocumentからUIのルート要素を一度だけ取得する
-        var uiDocument = GetComponent<UIDocument>();
-        if (uiDocument == null) return;
+        var root = GetComponent<UIDocument>().rootVisualElement;
 
-        var root = uiDocument.rootVisualElement;
-
-        // 2. 州情報表示用の要素を取得
+        // 州情報
         stateNameLabel = root.Q<Label>("StateNameLabel");
         populationLabel = root.Q<Label>("PopulationLabel");
         ownerLabel = root.Q<Label>("OwnerLabel");
 
-        // 3. タスクパネル表示用の要素を取得（root変数を再利用）
-        taskContainer = root.Q<VisualElement>("TaskContainer");
+        // タスク一覧画面の要素
+        taskListContainer = root.Q<VisualElement>("TaskListContainer");
+        taskScrollView = root.Q<ScrollView>("TaskScrollView");
+
+        // タスク詳細画面の要素
+        taskDetailContainer = root.Q<VisualElement>("TaskDetailContainer");
         reqNameLabel = root.Q<Label>("RequesterName");
         taskTitleLabel = root.Q<Label>("TaskTitle");
         taskMessageLabel = root.Q<Label>("TaskMessage");
         taskReqLabel = root.Q<Label>("TaskRequirement");
 
-        // 4. ボタンのクリックイベント登録
-        var closeButton = root.Q<Button>("CloseTaskButton");
-        if (closeButton != null)
-        {
-            closeButton.clicked += () =>
-            {
-                if (taskContainer != null) taskContainer.style.display = DisplayStyle.None;
-            };
-        }
-        // 【追加】テストボタンでID 1のタスクを表示
-        var testBtn = root.Q<Button>("TaskTestButton");
-        if (testBtn != null)
-        {
-            testBtn.clicked += () => ShowTask(1);
-        }
+        // ボタンの登録
+        var openBtn = root.Q<Button>("OpenTaskListButton");
+        if (openBtn != null) openBtn.clicked += ShowTaskList;
 
+        var closeBtn = root.Q<Button>("CloseTaskListButton");
+        if (closeBtn != null) closeBtn.clicked += () => taskListContainer.style.display = DisplayStyle.None;
 
+        var backBtn = root.Q<Button>("BackToListButton");
+        if (backBtn != null) backBtn.clicked += () =>
+        {
+            taskDetailContainer.style.display = DisplayStyle.None;
+            taskListContainer.style.display = DisplayStyle.Flex;
+        };
     }
 
-    // 州情報の更新
-    public void UpdateProvinceUI(ProvinceData data)
+    public void ShowTaskList()
     {
-        if (stateNameLabel == null) return;
+        if (taskScrollView == null) return;
+        taskScrollView.Clear();
 
-        if (data != null)
+        List<TaskData> allTasks = TaskDataManager.Instance.GetAllTasks();
+        foreach (var task in allTasks)
         {
-            stateNameLabel.text = data.stateName;
-            populationLabel.text = $"人口: {data.population:N0}人";
-            ownerLabel.text = $"所有者: {data.owner}";
+            Button taskItem = new Button();
+            taskItem.text = $"【{task.requesterName}】 {task.title}";
+            taskItem.style.height = 40;
+            taskItem.clicked += () => ShowTaskDetail(task.id);
+            taskScrollView.Add(taskItem);
         }
-        else
-        {
-            stateNameLabel.text = "未登録の領域";
-            populationLabel.text = "人口: --";
-            ownerLabel.text = "所有者: --";
-        }
+        taskListContainer.style.display = DisplayStyle.Flex;
     }
 
-    // タスクパネルの表示
-    public void ShowTask(int taskId)
+    private void ShowTaskDetail(int taskId)
     {
-        // 1. マネージャーがいるかチェック
-        if (TaskDataManager.Instance == null)
-        {
-            Debug.LogError("TaskDataManagerがシーンに存在しません！");
-            return;
-        }
-
         var data = TaskDataManager.Instance.GetTaskById(taskId);
-
-        // 2. 指定したIDのデータがあるか、UIパーツがちゃんと取得できているかチェック
-        if (data != null && taskContainer != null && reqNameLabel != null)
+        if (data != null)
         {
             reqNameLabel.text = data.requesterName;
             taskTitleLabel.text = data.title;
             taskMessageLabel.text = data.message;
             taskReqLabel.text = data.requirement;
-            taskContainer.style.display = DisplayStyle.Flex;
+
+            taskListContainer.style.display = DisplayStyle.None;
+            taskDetailContainer.style.display = DisplayStyle.Flex;
         }
-        else
-        {
-            Debug.LogWarning($"タスク表示に失敗しました。データ:{data != null}, UIパネル:{taskContainer != null}, ラベル:{reqNameLabel != null}");
-        }
+    }
+
+    public void UpdateProvinceUI(ProvinceData data)
+    {
+        if (stateNameLabel == null) return;
+        stateNameLabel.text = data?.stateName ?? "未選択";
+        populationLabel.text = data != null ? $"人口: {data.population:N0}人" : "人口: --";
+        ownerLabel.text = data != null ? $"所有者: {data.owner}" : "所有者: --";
     }
 }

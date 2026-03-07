@@ -4,6 +4,11 @@ public class GetColorOnClick : MonoBehaviour
 {
     void Update()
     {
+        // 【追加】タスクパネルが表示されている間は、地図のクリック判定を中止する
+        if (UIManager.Instance != null && UIManager.Instance.IsTaskPanelActive)
+        {
+            return;
+        }
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
