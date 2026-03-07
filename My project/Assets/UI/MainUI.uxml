@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="ProvinceUI.uss" />
+    <Style src="TaskUI.uss" />
+
+    <ui:VisualElement name="MainContainer" style="flex-grow: 1;">
+        
+        <ui:VisualElement style="position: absolute; top: 20px; left: 20px;">
+            <ui:Button name="TaskTestButton" text="タスク1を表示" style="width: 150px; height: 40px;" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="ProvincePanel" class="panel">
+            <ui:Label name="StateNameLabel" text="州を選択してください" class="header-text" />
+            <ui:Label name="PopulationLabel" text="人口: --" class="info-text" />
+            <ui:Label name="OwnerLabel" text="所有者: --" class="info-text" />
+        </ui:VisualElement>
+
+        <ui:VisualElement name="TaskContainer" class="task-container-hidden">
+            <ui:VisualElement name="TaskPanel" class="task-panel">
+                <ui:VisualElement class="task-header">
+                    <ui:VisualElement name="RequesterFace" class="face-placeholder" />
+                    <ui:VisualElement class="header-info">
+                        <ui:Label name="RequesterName" text="依頼主名" class="name-text" />
+                        <ui:Label name="TaskTitle" text="タスクタイトル" class="title-text" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement class="task-body">
+                    <ui:Label name="TaskMessage" text="依頼文" class="body-text" />
+                    <ui:Label text="【要求内容】" class="req-header" />
+                    <ui:Label name="TaskRequirement" text="要求事項" class="req-text" />
+                </ui:VisualElement>
+                <ui:Button name="CloseTaskButton" text="閉じる" class="close-btn" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>

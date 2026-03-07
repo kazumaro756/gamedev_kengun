@@ -1,0 +1,20 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "requesterName": "岩手 参謀中佐",
+      "faceImageKey": "requester_01",
+      "title": "航空機の緊急供出依頼",
+      "message": "前線の防空体制が極めて脆弱な状態にある。貴殿の管轄から航空機を融通願いたい。",
+      "requirement": "航空機20機の供出"
+    },
+    {
+      "id": 2,
+      "requesterName": "青森 需品大尉",
+      "faceImageKey": "requester_02",
+      "title": "冬季装備の確保",
+      "message": "北方の寒気が厳しさを増している。将兵の凍傷を防ぐため、至急防寒具の調達を求める。",
+      "requirement": "冬期装備1,000セットの納入"
+    }
+  ]
+}
