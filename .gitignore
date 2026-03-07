@@ -1,0 +1,12 @@
+My project/Library/*
+*.csproj
+*.meta
+*.unity
+*.sln
+My project/ProjectSettings/*
+My project/Logs/*
+My project/Temp/*
+My project/UserSettings/*
+My project/obj/*
+My project/Packages/*
+My project/.vscode/*
