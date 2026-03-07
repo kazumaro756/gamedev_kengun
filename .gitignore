@@ -10,3 +10,6 @@ My project/UserSettings/*
 My project/obj/*
 My project/Packages/*
 My project/.vscode/*
+My project/UIElementsSchema/*
+My project/Assets/UnityDefaultRuntimeTheme.tss
+My project/Assets/UI Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss

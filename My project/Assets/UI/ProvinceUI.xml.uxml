@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="ProvinceUI.uss" />
+    <ui:VisualElement name="ProvincePanel" class="panel">
+        <ui:Label name="StateNameLabel" text="州を選択してください" class="header-text" />
+        <ui:Label name="PopulationLabel" text="人口: --" class="info-text" />
+        <ui:Label name="OwnerLabel" text="所有者: --" class="info-text" />
+    </ui:VisualElement>
+</ui:UXML>
