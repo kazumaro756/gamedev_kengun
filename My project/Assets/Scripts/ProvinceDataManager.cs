@@ -24,6 +24,8 @@ public class ProvinceDataManager : MonoBehaviour
     public TextAsset jsonFile;
     private Dictionary<string, ProvinceData> provinceDict = new Dictionary<string, ProvinceData>();
 
+    public System.Action<ProvinceData> OnProvinceSelected;
+
     void Awake()
     {
         // 自分が唯一のマネージャーであることを保証する
@@ -67,5 +69,20 @@ public class ProvinceDataManager : MonoBehaviour
             return provinceDict[colorKey];
         }
         return null; // 見つからなかったら空っぽを返す
+    }
+
+    // 州が選択されたときの処理（イベント発行）
+    public void SelectProvince(string colorKey)
+    {
+        ProvinceData clickedProvince = GetProvince(colorKey);
+        if (clickedProvince != null)
+        {
+            Debug.Log($"クリックされた州: {clickedProvince.stateName} / 人口: {clickedProvince.population} / 所有者: {clickedProvince.owner}");
+            OnProvinceSelected?.Invoke(clickedProvince);
+        }
+        else
+        {
+            Debug.LogWarning($"未登録の色キーがクリックされました: {colorKey}");
+        }
     }
 }

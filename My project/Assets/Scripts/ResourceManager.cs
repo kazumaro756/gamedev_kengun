@@ -26,11 +26,13 @@ public class ResourceManager : MonoBehaviour
 
     public GlobalResourceData GetData() => data;
 
+    public System.Action OnResourceChanged;
+
     // 資源を消費・獲得した際に呼ぶ
     public void AddResources(long fundsDelta, int manpowerDelta)
     {
         data.funds += fundsDelta;
         data.manpower += manpowerDelta;
-        UIManager.Instance.UpdateResourceUI(); // UIに即反映
+        OnResourceChanged?.Invoke(); // UIへの直接通知をやめてイベントを発行する
     }
 }

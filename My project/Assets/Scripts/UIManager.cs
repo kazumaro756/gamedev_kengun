@@ -15,7 +15,14 @@ public class UIManager : MonoBehaviour
     private Label stateNameLabel, populationLabel, ownerLabel;
     private VisualElement taskListContainer, taskDetailContainer;
     private ScrollView taskScrollView;
+    private Label taskListTitle; // タスク一覧のタイトル
     private Label reqNameLabel, taskTitleLabel, taskMessageLabel, taskReqLabel;
+    private Button acceptTaskButton, deliverTaskButton; // アクションボタン
+    
+    // 現在表示しているタスクのタブ状態
+    private TaskState currentTaskTab = TaskState.New;
+    // 現在詳細表示しているタスクのID
+    private int currentDetailTaskId = -1;
 
     private Label fundsLabel, manpowerLabel;
 
@@ -24,6 +31,34 @@ public class UIManager : MonoBehaviour
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    void Start()
+    {
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.OnResourceChanged += UpdateResourceUI;
+        }
+
+        if (ProvinceDataManager.Instance != null)
+        {
+            ProvinceDataManager.Instance.OnProvinceSelected += UpdateProvinceUI;
+        }
+
+        UpdateResourceUI();
+    }
+
+    void OnDestroy()
+    {
+        if (ResourceManager.Instance != null)
+        {
+            ResourceManager.Instance.OnResourceChanged -= UpdateResourceUI;
+        }
+
+        if (ProvinceDataManager.Instance != null)
+        {
+            ProvinceDataManager.Instance.OnProvinceSelected -= UpdateProvinceUI;
+        }
     }
 
     void OnEnable()
@@ -37,7 +72,18 @@ public class UIManager : MonoBehaviour
 
         // タスク一覧画面の要素
         taskListContainer = root.Q<VisualElement>("TaskListContainer");
+        taskListTitle = root.Q<Label>("TaskListTitle");
         taskScrollView = root.Q<ScrollView>("TaskScrollView");
+
+        // タブボタンの登録
+        var tabNewTasksBtn = root.Q<Button>("TabNewTasksButton");
+        if (tabNewTasksBtn != null) tabNewTasksBtn.clicked += () => SwitchTaskTab(TaskState.New);
+
+        var tabAcceptedTasksBtn = root.Q<Button>("TabAcceptedTasksButton");
+        if (tabAcceptedTasksBtn != null) tabAcceptedTasksBtn.clicked += () => SwitchTaskTab(TaskState.Accepted);
+
+        var tabCompletedTasksBtn = root.Q<Button>("TabCompletedTasksButton");
+        if (tabCompletedTasksBtn != null) tabCompletedTasksBtn.clicked += () => SwitchTaskTab(TaskState.Completed);
 
         // タスク詳細画面の要素
         taskDetailContainer = root.Q<VisualElement>("TaskDetailContainer");
@@ -45,6 +91,12 @@ public class UIManager : MonoBehaviour
         taskTitleLabel = root.Q<Label>("TaskTitle");
         taskMessageLabel = root.Q<Label>("TaskMessage");
         taskReqLabel = root.Q<Label>("TaskRequirement");
+
+        acceptTaskButton = root.Q<Button>("AcceptTaskButton");
+        if (acceptTaskButton != null) acceptTaskButton.clicked += OnAcceptTaskClicked;
+
+        deliverTaskButton = root.Q<Button>("DeliverTaskButton");
+        if (deliverTaskButton != null) deliverTaskButton.clicked += OnDeliverTaskClicked;
 
         // ボタンの登録
         var openBtn = root.Q<Button>("OpenTaskListButton");
@@ -57,7 +109,7 @@ public class UIManager : MonoBehaviour
         if (backBtn != null) backBtn.clicked += () =>
         {
             taskDetailContainer.style.display = DisplayStyle.None;
-            taskListContainer.style.display = DisplayStyle.Flex;
+            ShowTaskList(); // 一覧に戻る時に再描画する
         };
 
 
@@ -68,13 +120,25 @@ public class UIManager : MonoBehaviour
 
     }
 
+    private void SwitchTaskTab(TaskState state)
+    {
+        currentTaskTab = state;
+        if (taskListTitle != null)
+        {
+            if (state == TaskState.New) taskListTitle.text = "新規タスク一覧";
+            else if (state == TaskState.Accepted) taskListTitle.text = "受託済タスク一覧";
+            else if (state == TaskState.Completed) taskListTitle.text = "完了済タスク一覧";
+        }
+        ShowTaskList();
+    }
+
     public void ShowTaskList()
     {
         if (taskScrollView == null) return;
         taskScrollView.Clear();
 
-        List<TaskData> allTasks = TaskDataManager.Instance.GetAllTasks();
-        foreach (var task in allTasks)
+        List<TaskData> activeTasks = TaskDataManager.Instance.GetTasksByState(currentTaskTab);
+        foreach (var task in activeTasks)
         {
             Button taskItem = new Button();
             taskItem.text = $"【{task.requesterName}】 {task.title}";
@@ -90,13 +154,45 @@ public class UIManager : MonoBehaviour
         var data = TaskDataManager.Instance.GetTaskById(taskId);
         if (data != null)
         {
+            currentDetailTaskId = taskId;
             reqNameLabel.text = data.requesterName;
             taskTitleLabel.text = data.title;
             taskMessageLabel.text = data.message;
             taskReqLabel.text = data.requirement;
 
+            // ボタンの表示状態をステータスによって切り替え
+            if (acceptTaskButton != null)
+                acceptTaskButton.style.display = data.state == TaskState.New ? DisplayStyle.Flex : DisplayStyle.None;
+            
+            if (deliverTaskButton != null)
+                deliverTaskButton.style.display = data.state == TaskState.Accepted ? DisplayStyle.Flex : DisplayStyle.None;
+
             taskListContainer.style.display = DisplayStyle.None;
             taskDetailContainer.style.display = DisplayStyle.Flex;
+        }
+    }
+
+    private void OnAcceptTaskClicked()
+    {
+        if (currentDetailTaskId != -1)
+        {
+            TaskDataManager.Instance.AcceptTask(currentDetailTaskId);
+            taskDetailContainer.style.display = DisplayStyle.None;
+            
+            // 受託後は受託済タブに切り替えて一覧を表示
+            SwitchTaskTab(TaskState.Accepted);
+        }
+    }
+
+    private void OnDeliverTaskClicked()
+    {
+        if (currentDetailTaskId != -1)
+        {
+            TaskDataManager.Instance.DeliverTask(currentDetailTaskId);
+            taskDetailContainer.style.display = DisplayStyle.None;
+            
+            // 納品後はそのまま一覧（受託済タブ）に戻る
+            ShowTaskList();
         }
     }
 
@@ -111,7 +207,11 @@ public class UIManager : MonoBehaviour
 
     public void UpdateResourceUI()
     {
+        if (ResourceManager.Instance == null) return;
+
         var res = ResourceManager.Instance.GetData();
+        if (res == null) return;
+
         if (fundsLabel != null) fundsLabel.text = $"{res.funds:N0}";
         if (manpowerLabel != null) manpowerLabel.text = $"{res.manpower:N0}";
     }

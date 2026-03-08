@@ -34,18 +34,8 @@ public class GetColorOnClick : MonoBehaviour
                         Color pixelColor = tex.GetPixel(px, py);
                         string stateKey = ColorUtility.ToHtmlStringRGB(pixelColor);
 
-                        // マネージャーに「この色の州データちょうだい！」と頼む
-                        ProvinceData clickedProvince = ProvinceDataManager.Instance.GetProvince(stateKey);
-
-                        if (clickedProvince != null)
-                        {
-                            Debug.Log($"クリックされた州: {clickedProvince.stateName} / 人口: {clickedProvince.population} / 所有者: {clickedProvince.owner}");
-                            UIManager.Instance.UpdateProvinceUI(clickedProvince);
-                        }
-                        else
-                        {
-                            Debug.Log($"未登録の色キーがクリックされました: {stateKey}");
-                        }
+                        // マネージャーに「この色の州データちょうだい！」と頼んで選択してもらう
+                        ProvinceDataManager.Instance.SelectProvince(stateKey);
                     }
                 }
             }
