@@ -4,37 +4,43 @@
       "colorKey": "0D5948",
       "stateName": "青森県",
       "population": 1200000,
-      "owner": "Neutral"
+      "owner": "Neutral",
+      "maxSlots": 3
     },
     {
       "colorKey": "00FFC7",
       "stateName": "岩手県",
       "population": 1180000,
-      "owner": "Neutral"
+      "owner": "Neutral",
+      "maxSlots": 4
     },
     {
       "colorKey": "9999FF",
       "stateName": "宮城県",
       "population": 2280000,
-      "owner": "Neutral"
+      "owner": "Neutral",
+      "maxSlots": 5
     },
     {
       "colorKey": "E4E54C",
       "stateName": "秋田県",
       "population": 930000,
-      "owner": "Neutral"
+      "owner": "Neutral",
+      "maxSlots": 2
     },
     {
       "colorKey": "995633",
       "stateName": "山形県",
       "population": 1040000,
-      "owner": "Neutral"
+      "owner": "Neutral",
+      "maxSlots": 3
     },
     {
       "colorKey": "4C4C4C",
       "stateName": "福島県",
       "population": 1800000,
-      "owner": "Neutral"
+      "owner": "Neutral",
+      "maxSlots": 3
     }
   ]
 }

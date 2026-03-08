@@ -8,6 +8,18 @@ public class ProvinceData
     public string stateName;
     public int population;
     public string owner;
+
+    // --- 新規追加（内政用） ---
+    public int maxSlots; // 最大建設スロット数
+    public List<BuildingSlot> slots = new List<BuildingSlot>(); // 建設スロットリスト
+}
+
+[System.Serializable]
+public class BuildingSlot
+{
+    public string buildingId;
+    public bool isConstructed;   // 完成しているか
+    public int remainingDays;    // 完成までの残り日数
 }
 
 [System.Serializable]
@@ -25,6 +37,7 @@ public class ProvinceDataManager : MonoBehaviour
     private Dictionary<string, ProvinceData> provinceDict = new Dictionary<string, ProvinceData>();
 
     public System.Action<ProvinceData> OnProvinceSelected;
+    public System.Action<ProvinceData> OnProvinceUpdated; // データが更新された時のイベント
 
     void Awake()
     {
@@ -71,6 +84,11 @@ public class ProvinceDataManager : MonoBehaviour
         return null; // 見つからなかったら空っぽを返す
     }
 
+    public List<ProvinceData> GetAllProvinces()
+    {
+        return new List<ProvinceData>(provinceDict.Values);
+    }
+
     // 州が選択されたときの処理（イベント発行）
     public void SelectProvince(string colorKey)
     {
@@ -84,5 +102,11 @@ public class ProvinceDataManager : MonoBehaviour
         {
             Debug.LogWarning($"未登録の色キーがクリックされました: {colorKey}");
         }
+    }
+
+    // 州のデータが更新された際（建設完了時など）に呼ぶ
+    public void NotifyProvinceUpdated(ProvinceData province)
+    {
+        OnProvinceUpdated?.Invoke(province);
     }
 }

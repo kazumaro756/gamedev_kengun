@@ -1,0 +1,31 @@
+{
+    "buildings": [
+        {
+            "id": "farm_01",
+            "name": "農地",
+            "description": "食料を生産し、人口増加とわずかな資金をもたらす基本的な施設。",
+            "cost": 500,
+            "constructionDays": 30,
+            "incomeBonus": 100,
+            "populationBonus": 50
+        },
+        {
+            "id": "market_01",
+            "name": "市場",
+            "description": "人々の交易を活性化させ、多くの税収を生み出す。",
+            "cost": 1000,
+            "constructionDays": 45,
+            "incomeBonus": 300,
+            "populationBonus": 10
+        },
+        {
+            "id": "barracks_01",
+            "name": "兵舎",
+            "description": "兵士を訓練する施設。兵力の上限と回復速度を高める。",
+            "cost": 800,
+            "constructionDays": 60,
+            "incomeBonus": -50,
+            "populationBonus": 0
+        }
+    ]
+}

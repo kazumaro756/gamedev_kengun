@@ -3,13 +3,20 @@
     <Style src="ProvinceUI.uss" />
     <Style src="TaskUI.uss" />
     <ui:VisualElement name="TopBar" class="top-bar">
-        <ui:VisualElement class="resource-group">
-            <ui:Label text="資金:" class="resource-label" />
-            <ui:Label name="FundsLabel" text="0" class="resource-value" />
+        <ui:VisualElement style="flex-direction: row; align-items: center;">
+            <ui:Label name="DateLabel" text="1560年 1月 1日" style="color: white; font-size: 18px; margin-right: 20px; font-weight: bold;" />
+            <ui:Button name="NextDayButton" text="翌日へ進む ＞" style="height: 30px; font-weight: bold; background-color: #4CAF50; color: white; border-radius: 5px;" />
         </ui:VisualElement>
-        <ui:VisualElement class="resource-group">
-            <ui:Label text="総兵員:" class="resource-label" />
-            <ui:Label name="ManpowerLabel" text="0" class="resource-value" />
+        
+        <ui:VisualElement style="flex-direction: row; align-items: center; justify-content: flex-end; flex-grow: 1;">
+            <ui:VisualElement class="resource-group" style="margin-right: 15px;">
+                <ui:Label text="資金:" class="resource-label" />
+                <ui:Label name="FundsLabel" text="0" class="resource-value" />
+            </ui:VisualElement>
+            <ui:VisualElement class="resource-group">
+                <ui:Label text="総兵員:" class="resource-label" />
+                <ui:Label name="ManpowerLabel" text="0" class="resource-value" />
+            </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>
     <ui:VisualElement name="MainContainer" style="flex-grow: 1;">
@@ -61,6 +68,32 @@
                 </ui:VisualElement>
 
                 <ui:Button name="BackToListButton" text="一覧に戻る" class="close-btn" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- 州管理パネル（新規追加） -->
+        <ui:VisualElement name="ProvinceManagementContainer" class="task-container-hidden">
+            <ui:VisualElement class="task-panel" style="width: 500px; height: 500px;">
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; border-bottom-width: 2px; border-bottom-color: white; padding-bottom: 5px;">
+                    <ui:Label name="MgmtStateNameLabel" text="州管理パネル：未選択" class="header-text" />
+                    <ui:Button name="CloseMgmtButton" text="X" style="width: 30px; height: 30px; background-color: darkred; color: white;" />
+                </ui:VisualElement>
+                
+                <ui:Label name="MgmtInfoLabel" text="人口: -- / 所有者: --" style="margin-top: 5px; margin-bottom: 10px; color: lightgray;" />
+                
+                <ui:Label text="=== 開発スロット ===" style="color: white; -unity-font-style: bold; margin-bottom: 5px;" />
+                <ui:VisualElement name="BuildingSlotsContainer" style="flex-direction: row; flex-wrap: wrap; justify-content: flex-start; margin-bottom: 10px;">
+                    <!-- ここにスクリプトからスロットボタンを動的に追加します -->
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- 建設ポップアップ -->
+        <ui:VisualElement name="ConstructionPopup" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0,0,0,0.8); display: none; justify-content: center; align-items: center;">
+            <ui:VisualElement style="width: 400px; background-color: #2F2F2F; border-radius: 10px; padding: 10px; border-color: gray; border-width: 2px;">
+                <ui:Label text="建設する建物を選択" class="header-text" style="color: gold; -unity-text-align: middle-center; margin-bottom: 10px;" />
+                <ui:ScrollView name="BuildingListScrollView" style="height: 250px;" />
+                <ui:Button name="ClosePopupButton" text="キャンセル" class="close-btn" style="margin-top: 10px;" />
             </ui:VisualElement>
         </ui:VisualElement>
 
