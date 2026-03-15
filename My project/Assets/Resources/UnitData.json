@@ -1,0 +1,224 @@
+{
+    "units": [
+        {
+            "unitId": "div_1",
+            "parentId": "",
+            "unitName": "第1師団",
+            "type": 0,
+            "currentManpower": 12000,
+            "maxManpower": 12000,
+            "nodePosX": 50.0,
+            "nodePosY": 50.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "brig_1_1",
+            "parentId": "div_1",
+            "unitName": "第1歩兵旅団",
+            "type": 1,
+            "currentManpower": 5500,
+            "maxManpower": 6000,
+            "nodePosX": 330.0,
+            "nodePosY": 50.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "reg_1_1_2",
+            "parentId": "brig_1_1",
+            "unitName": "第2歩兵連隊",
+            "type": 2,
+            "currentManpower": 2800,
+            "maxManpower": 3000,
+            "nodePosX": 610.0,
+            "nodePosY": 50.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "reg_1_1_1",
+            "parentId": "brig_1_1",
+            "unitName": "第1歩兵連隊",
+            "type": 2,
+            "currentManpower": 2500,
+            "maxManpower": 3000,
+            "nodePosX": 610.0,
+            "nodePosY": 140.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "bat_1_1_1_1",
+            "parentId": "reg_1_1_1",
+            "unitName": "第1大隊",
+            "type": 3,
+            "currentManpower": 800,
+            "maxManpower": 1000,
+            "nodePosX": 890.0,
+            "nodePosY": 140.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "comp_1_1_1_1_1",
+            "parentId": "bat_1_1_1_1",
+            "unitName": "第1中隊",
+            "type": 4,
+            "currentManpower": 150,
+            "maxManpower": 200,
+            "nodePosX": 1170.0,
+            "nodePosY": 140.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "comp_1_1_1_1_2",
+            "parentId": "bat_1_1_1_1",
+            "unitName": "第2中隊",
+            "type": 4,
+            "currentManpower": 180,
+            "maxManpower": 200,
+            "nodePosX": 1170.0,
+            "nodePosY": 230.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "bat_1_1_1_2",
+            "parentId": "reg_1_1_1",
+            "unitName": "第2大隊",
+            "type": 3,
+            "currentManpower": 850,
+            "maxManpower": 1000,
+            "nodePosX": 890.0,
+            "nodePosY": 320.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "4c0d1185-5642-47f1-87cb-896b7e3ef119",
+            "parentId": "",
+            "unitName": "砲兵大隊",
+            "type": 3,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 50.0,
+            "nodePosY": 490.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "1b0f5381-ccae-49cb-b707-ecdacf04a121",
+            "parentId": "",
+            "unitName": "砲兵大隊",
+            "type": 3,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 50.0,
+            "nodePosY": 660.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "190d2027-2aea-4677-ac83-44fbe19f622f",
+            "parentId": "",
+            "unitName": "砲兵大隊",
+            "type": 3,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 50.0,
+            "nodePosY": 830.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "brig_1_2",
+            "parentId": "190d2027-2aea-4677-ac83-44fbe19f622f",
+            "unitName": "第2歩兵旅団",
+            "type": 1,
+            "currentManpower": 4500,
+            "maxManpower": 6000,
+            "nodePosX": 330.0,
+            "nodePosY": 830.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "f8faa6db-d99d-4a82-ba3f-d0fbe836648d",
+            "parentId": "brig_1_2",
+            "unitName": "歩兵旅団",
+            "type": 1,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 610.0,
+            "nodePosY": 830.0,
+            "templateId": ""
+        },
+        {
+            "unitId": "98ea2ea0-3d8e-4940-9e00-3ccfb2b68509",
+            "parentId": "",
+            "unitName": "歩兵大隊",
+            "type": 3,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 50.0,
+            "nodePosY": 1000.0,
+            "templateId": "TPL_INF_BAT"
+        },
+        {
+            "unitId": "69afab8b-0de0-475a-8a42-bd14c28373b0",
+            "parentId": "98ea2ea0-3d8e-4940-9e00-3ccfb2b68509",
+            "unitName": "戦車中隊",
+            "type": 4,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 330.0,
+            "nodePosY": 1000.0,
+            "templateId": "UNIT_TANK_COMP"
+        },
+        {
+            "unitId": "d76040c6-de40-45d7-ab46-04397f9dcaa5",
+            "parentId": "98ea2ea0-3d8e-4940-9e00-3ccfb2b68509",
+            "unitName": "戦車中隊",
+            "type": 4,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 330.0,
+            "nodePosY": 1090.0,
+            "templateId": "UNIT_TANK_COMP"
+        },
+        {
+            "unitId": "82d62078-0281-474c-9517-d163248c2351",
+            "parentId": "98ea2ea0-3d8e-4940-9e00-3ccfb2b68509",
+            "unitName": "歩兵師団",
+            "type": 0,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 330.0,
+            "nodePosY": 1180.0,
+            "templateId": "TPL_INF_DIV"
+        },
+        {
+            "unitId": "98cd8ec6-0d09-4186-a907-0d2d68a4c3f8",
+            "parentId": "98ea2ea0-3d8e-4940-9e00-3ccfb2b68509",
+            "unitName": "歩兵中隊",
+            "type": 4,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 330.0,
+            "nodePosY": 1270.0,
+            "templateId": "UNIT_INF_COMP"
+        },
+        {
+            "unitId": "d3fef28d-2a08-4690-b1bb-5284acd204b2",
+            "parentId": "98ea2ea0-3d8e-4940-9e00-3ccfb2b68509",
+            "unitName": "砲兵中隊",
+            "type": 4,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 330.0,
+            "nodePosY": 1360.0,
+            "templateId": "UNIT_ART_COMP"
+        },
+        {
+            "unitId": "328073e5-a28c-408a-9c35-8e6aebcc9422",
+            "parentId": "",
+            "unitName": "歩兵旅団",
+            "type": 1,
+            "currentManpower": 1000,
+            "maxManpower": 1000,
+            "nodePosX": 50.0,
+            "nodePosY": 1530.0,
+            "templateId": "TPL_INF_BRIG"
+        }
+    ]
+}

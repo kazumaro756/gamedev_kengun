@@ -28,7 +28,9 @@
         </ui:VisualElement>
 
         <ui:VisualElement style="position: absolute; top: 20px; left: 20px;">
-            <ui:Button name="OpenTaskListButton" text="タスク管理" style="width: 150px; height: 40px;" />
+            <ui:Button name="OpenTaskListButton" text="タスク管理" style="width: 150px; height: 40px; margin-bottom: 5px;" />
+            <ui:Button name="OpenUnitMgmtButton" text="部隊ツリー (OOB)" style="width: 150px; height: 40px; margin-bottom: 5px;" />
+            <ui:Button name="OpenNodeOOBButton" text="ノード編制 (Node OOB)" style="width: 150px; height: 40px; background-color: #2b5797; color: white; font-weight: bold;" />
         </ui:VisualElement>
 
         <ui:VisualElement name="TaskListContainer" class="task-container-hidden">
@@ -71,7 +73,7 @@
             </ui:VisualElement>
         </ui:VisualElement>
 
-        <!-- 州管理パネル（新規追加） -->
+        <!-- 州管理パネル（既存） -->
         <ui:VisualElement name="ProvinceManagementContainer" class="task-container-hidden">
             <ui:VisualElement class="task-panel" style="width: 500px; height: 500px;">
                 <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; border-bottom-width: 2px; border-bottom-color: white; padding-bottom: 5px;">
@@ -94,6 +96,51 @@
                 <ui:Label text="建設する建物を選択" class="header-text" style="color: gold; -unity-text-align: middle-center; margin-bottom: 10px;" />
                 <ui:ScrollView name="BuildingListScrollView" style="height: 250px;" />
                 <ui:Button name="ClosePopupButton" text="キャンセル" class="close-btn" style="margin-top: 10px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- ツリー型 部隊管理パネル（既存） -->
+        <ui:VisualElement name="UnitManagementContainer" class="task-container-hidden">
+            <ui:VisualElement class="task-panel" style="width: 600px; height: 600px;">
+                <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; border-bottom-width: 2px; border-bottom-color: white; padding-bottom: 5px; margin-bottom: 10px;">
+                    <ui:Label text="部隊ツリー（Order of Battle）" class="header-text" />
+                    <ui:Button name="CloseUnitMgmtButton" text="X" style="width: 30px; height: 30px; background-color: darkred; color: white;" />
+                </ui:VisualElement>
+                
+                <ui:ScrollView name="UnitTreeScrollView" style="flex-grow: 1; border-color: gray; border-width: 1px; padding: 5px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+
+        <!-- インタラクティブノード型 部隊管理パネル（新規） -->
+        <ui:VisualElement name="NodeOOBContainer" class="task-container-hidden" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-color: rgba(0, 0, 0, 0.9);">
+            <ui:VisualElement style="flex-direction: row; justify-content: space-between; align-items: center; padding: 10px; background-color: #1a1a1a; border-bottom-width: 2px; border-bottom-color: #333;">
+                <ui:Label text="インタラクティブ部隊編制エディタ" style="color: white; font-size: 18px; -unity-font-style: bold;" />
+                <ui:Button name="CloseNodeOOBButton" text="閉じる" style="width: 80px; height: 30px; background-color: darkred; color: white; border-radius: 5px;" />
+            </ui:VisualElement>
+
+            <!-- 2カラムレイアウト（左：パレット、右：キャンバス） -->
+            <ui:VisualElement style="flex-direction: row; flex-grow: 1;">
+                
+                <!-- 左サイド: ユニットパレット -->
+                <ui:VisualElement style="width: 250px; border-right-width: 2px; border-right-color: #333; background-color: #242424; padding: 10px;">
+                    <ui:Label text="部隊パレット" style="color: lightgray; -unity-font-style: bold; margin-bottom: 10px;" />
+                    <ui:ScrollView name="NodePaletteScrollView" style="flex-grow: 1;">
+                        <!-- ここに生成可能なノードのテンプレート（ドラッグ元）を並べる -->
+                    </ui:ScrollView>
+                </ui:VisualElement>
+
+                <!-- 右サイド: メインキャンバス -->
+                <ui:VisualElement name="NodeCanvasArea" style="flex-grow: 1; overflow: hidden; position: relative;">
+                    <!-- グリッド背景の描画や無限パニング用コンテナとなる要素 -->
+                    <ui:VisualElement name="NodeCanvasContent" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+                        <!-- ワイヤー（線）を描画するためのレイヤーを最背面に配置 -->
+                        <ui:VisualElement name="WireLayer" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; picking-mode: Ignore;" />
+                        
+                        <!-- ここに部隊ノードが配置されていく -->
+                        <ui:VisualElement name="NodesLayer" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; picking-mode: Ignore;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                
             </ui:VisualElement>
         </ui:VisualElement>
 

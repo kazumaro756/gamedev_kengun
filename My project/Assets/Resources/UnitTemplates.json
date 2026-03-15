@@ -1,0 +1,70 @@
+{
+    "templates": [
+        {
+            "templateId": "TPL_INF_BAT",
+            "templateName": "歩兵大隊",
+            "targetUnitType": 3,
+            "requirements": [
+                {
+                    "requiredType": 4,
+                    "coreCount": 3,
+                    "maxSupportCount": 2
+                }
+            ]
+        },
+        {
+            "templateId": "TPL_INF_REG",
+            "templateName": "歩兵連隊",
+            "targetUnitType": 2,
+            "requirements": [
+                {
+                    "requiredType": 3,
+                    "coreCount": 3,
+                    "maxSupportCount": 1
+                }
+            ]
+        },
+        {
+            "templateId": "TPL_INF_BRIG",
+            "templateName": "歩兵旅団",
+            "targetUnitType": 1,
+            "requirements": [
+                {
+                    "requiredType": 2,
+                    "coreCount": 2,
+                    "maxSupportCount": 0
+                }
+            ]
+        },
+        {
+            "templateId": "TPL_INF_DIV",
+            "templateName": "歩兵師団",
+            "targetUnitType": 0,
+            "requirements": [
+                {
+                    "requiredType": 1,
+                    "coreCount": 2,
+                    "maxSupportCount": 2
+                }
+            ]
+        },
+        {
+            "templateId": "UNIT_INF_COMP",
+            "templateName": "歩兵中隊",
+            "targetUnitType": 4,
+            "requirements": []
+        },
+        {
+            "templateId": "UNIT_TANK_COMP",
+            "templateName": "戦車中隊",
+            "targetUnitType": 4,
+            "requirements": []
+        },
+        {
+            "templateId": "UNIT_ART_COMP",
+            "templateName": "砲兵中隊",
+            "targetUnitType": 4,
+            "requirements": []
+        }
+    ]
+}
